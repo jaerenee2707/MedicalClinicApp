@@ -16,19 +16,19 @@
             height: 48px;
         }
 
-        .navbar a {
-            float: right;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-        }
+            .navbar a {
+                float: right;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
 
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
+                .navbar a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
         /* Styles for the form */
         .form-container {
             max-width: 800px;
@@ -37,39 +37,39 @@
             box-sizing: border-box;
         }
 
-        .form-container label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 16px;
-            font-weight: bold;
-        }
+            .form-container label {
+                display: block;
+                margin-bottom: 10px;
+                font-size: 16px;
+                font-weight: bold;
+            }
 
-        .form-container input[type="text"],
-        .form-container input[type="email"],
-        .form-container input[type="date"] {
-            width: 30%;
-            padding: 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
+            .form-container input[type="text"],
+            .form-container input[type="email"],
+            .form-container input[type="date"] {
+                width: 30%;
+                padding: 10px;
+                margin-bottom: 20px;
+                box-sizing: border-box;
+            }
 
-        .form-container input[type="checkbox"] {
-            margin-right: 10px;
-        }
+            .form-container input[type="checkbox"] {
+                margin-right: 10px;
+            }
 
-        .form-container input[type="submit"] {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+            .form-container input[type="submit"] {
+                background-color: #333;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+            }
 
-        .form-container input[type="submit"]:hover {
-            background-color: #555;
-        }
+                .form-container input[type="submit"]:hover {
+                    background-color: #555;
+                }
 
         .required {
             color: red;
@@ -109,7 +109,7 @@
                 data-target="#delOffModal">
             Remove Office
         </button>
-        <!-- Modal -->
+        <!-- Modal Personnel-->
         <div class="modal fade"
              id="personnelModal"
              tabindex="-1"
@@ -125,8 +125,8 @@
                         <div class="form-group">
                             <br />
                             Select a personnel type <span class="required">*</span></label>&nbsp;
-                            <label for="job-type">Choose Personnel Type:</label>
-                            <select name="job-type" id="job-type">
+                            <label for="jobtype">Choose Personnel Type:</label>
+                            <select name="jobtype" id="jobtype">
                                 <option value="doctor">Doctor</option>
                                 <option value="nurse">Nurse</option>
                                 <option value="staff">Staff</option>
@@ -179,12 +179,15 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="specialty">If adding staff, enter a role</label>&nbsp;
+                                        <label for="role">If adding staff, enter a role</label>&nbsp;
                                         <asp:TextBox ID="role" runat="server"></asp:TextBox>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="office">If adding staff or nurse, enter a Office ID</label>&nbsp;
+                                        <asp:TextBox ID="office" runat="server"></asp:TextBox>
+                                    </div>
                                     <p><span class="required">*</span> Required information</p>
-                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click" /></p>
+                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click_addPer" /></p>
                                 </fieldset>
                                 &nbsp;
                             </form>
@@ -231,7 +234,7 @@
                     crossorigin="anonymous">
             </script>
         </div>
-        <!-- Modal -->
+        <!-- Modal Office-->
         <div class="modal fade"
              id="officeModal"
              tabindex="-1"
@@ -252,7 +255,7 @@
                                         <asp:TextBox ID="address" runat="server"></asp:TextBox>
                                     </div>
                                     <p><span class="required">*</span> Required information</p>
-                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click" /></p>
+                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click_AddOff" /></p>
                                 </fieldset>
                                 &nbsp;
                             </form>
@@ -298,7 +301,7 @@
                     crossorigin="anonymous">
             </script>
         </div>
-        <!-- Modal -->
+        <!-- Modal Remove Personnel-->
         <div class="modal fade"
              id="deloffModal"
              tabindex="-1"
@@ -309,17 +312,29 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <h1>Remove Office</h1>
+                        <h1>Remove Personnel</h1>
                         <p>Please fill out where indicated</p>
+                        <div class="form-group">
+                            <br />
+                            Select a personnel type <span class="required">*</span></label>&nbsp;
+                            <label for="jobtype">Choose Personnel Type:</label>
+                            <select name="jobtype" id="jobtype">
+                                <option value="doctor">Doctor</option>
+                                <option value="nurse">Nurse</option>
+                                <option value="staff">Staff</option>
+                            </select>
+                            <br />
+                            <br />
+                        </div>
                         <div class="form-container">
                             <form id="form2" runat="server">
                                 <fieldset>
                                     <div class="form-group">
-                                        <label for="offID"> Office ID <span class="required">*</span></label>&nbsp;
-                                        <asp:TextBox ID="offID" runat="server"></asp:TextBox>
+                                        <label for="perID"> Personnel ID <span class="required">*</span></label>&nbsp;
+                                        <asp:TextBox ID="perID" runat="server"></asp:TextBox>
                                     </div>
                                     <p><span class="required">*</span> Required information</p>
-                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click" /></p>
+                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click_RemPer" /></p>
                                 </fieldset>
                                 &nbsp;
                             </form>
@@ -330,7 +345,7 @@
                                 // Attach event handler to form submit button click
                                 $('#<%=SUBMIT.ClientID %>').on('click', function () {
                                     // Check if required fields are filled out
-                                    if ($('#<%=offID.ClientID %>').val() === '' ) {
+                                    if ($('#<%=offID.ClientID %>').val() === '') {
                                         // Display dialog box
                                         alert('Please fill out all required fields.');
                                         return false; // Cancel form submission
@@ -365,7 +380,7 @@
                     crossorigin="anonymous">
             </script>
         </div>
-        <!-- Modal -->
+        <!-- Modal Remove Office-->
         <div class="modal fade"
              id="delperModal"
              tabindex="-1"
@@ -386,7 +401,7 @@
                                         <asp:TextBox ID="id" runat="server"></asp:TextBox>
                                     </div>
                                     <p><span class="required">*</span> Required information</p>
-                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click" /></p>
+                                    <p><asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click_RemOff" /></p>
                                 </fieldset>
                                 &nbsp;
                             </form>

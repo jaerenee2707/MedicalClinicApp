@@ -3,41 +3,83 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Provider View</title>
-</head>
-<body>
-   <h1 id="welcomeHeader" runat="server"> </h1>
+<head runat="server" >
+<title>Prvider View</title>
+	<meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<style>
+            /* Styles for the navigation bar */
+      .navbar {
+        background-color: #333;
+        overflow: hidden;
+                height: 48px;
+            }
+      .navbar a {
+        float: right;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      /* Styles for the form */
+      .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .form-container label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .form-container input[type="text"],
+      .form-container input[type="email"],
+      .form-container input[type="date"] {
+        width: 30%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
+      .form-container input[type="checkbox"] {
+        margin-right: 10px;
+      }
+      .form-container input[type="submit"] {
+        background-color: #333;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .form-container input[type="submit"]:hover {
+        background-color: #555;
+      }
+      .required {
+        color: red;
+      }
+    </style>
+    </head>
+    <body>
+    <h1 id="welcomeHeader" runat="server"> </h1>
     <br />
     <br />
-<!--
-    Where appointment view was
--->
-<!-- Fill out to add new doctor, nurse, staff-->
-  <div class="header">
-    <div class="container">
-      <a class="btn" href="New_____.aspx">Add New Personnel</a>
-    </div>
-    <div class="container">
-      <a class="btn" href="New_____.aspx">Add New Office</a>
-    </div>
-    <div class="container">
-      <a class="btn" href="Remove_____.aspx">Remove Personnel</a>
-    </div>
-    <div class="container">
-      <a class="btn" href="New_____.aspx">Remove Office</a>
-    </div>
-  </div>
-                <!--- Beginning of Newsletter Code -->
             <div style="text-align: center; margin-bottom:2cm; margin-top:1px">
              <!-- Button to launch a modal -->
-    <button type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#exampleModal">
-        Add New Personnel
-    </button>
-  
+                <button type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#exampleModal">
+                    Add New Personnel
+                </button>
     <!-- Modal -->
     <div class="modal fade"
         id="exampleModal"
@@ -52,11 +94,14 @@
                     <h1>Add new Personnel</h1>
                     <p>Please fill out where indicated</p>
                     <div class="form-group">
-                      <label for="officelabel">
                           <br />
                               Select a personnel type <span class="required">*</span></label>&nbsp;
-                              <asp:DropDownList ID="DropDownList1" runat="server" Width="140px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="True">
-                              </asp:DropDownList>
+                              <label for="job-type">Choose Personnel Type:</label>
+                                <select name="job-type" id="job-type">
+                                   <option value="doctor">Doctor</option>
+                                  <option value="nurse">Nurse</option>
+                                  <option value="staff">Staff</option>
+                                </select>
                            <br />
                        <br />
                     </div>
@@ -92,16 +137,27 @@
                                   <asp:RegularExpressionValidator ID="phoneValidator" runat="server" ControlToValidate="phone_num"
                                       ValidationExpression="^\d{10}$" ErrorMessage="Please enter a valid phone number" />
                               </div>
-
-
-
                         <div class="form-group">
                           <label for="email">Email <span class="required">*</span></label>&nbsp;
                                   <asp:TextBox ID="email" runat="server" placeholder="you@example.com"></asp:TextBox>
                                   <asp:RegularExpressionValidator ID="emailValidator" runat="server" 
                                   ControlToValidate="email" ErrorMessage="Please enter a valid email address." 
                                       ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" />
-                        </div>
+                            </div>
+                         <div class="form-group">
+                          <label for="specialty">If adding a doctor, enter a specialty</label>&nbsp;
+                                  <asp:TextBox ID="specialty" runat="server"></asp:TextBox>
+                          </div>
+                          <div class="form-group">
+                          <label for="specialty">If adding staff, enter a role</label>&nbsp;
+                                  <asp:TextBox ID="role" runat="server"></asp:TextBox>
+                          </div>
+                        <p><span class="required">*</span> Required information</p>
+                        <p>
+                            <asp:Button ID="SUBMIT" runat="server" Text="SUBMIT" OnClick="SUBMIT_Click" />
+                        </p>
+                        </fieldset>
+                        &nbsp;</form>
                         </div>
                          <script>
                         //Client-side jQuery to cancel form submission if required fields empty 
@@ -118,7 +174,7 @@
                                 });
                             });
                         </script>
-                        <!-- END MODAL: NEW PERSONNEL--->
+                        
                         <div class="modal-footer">
                             <button type="button"
                                 class="btn btn-secondary"
@@ -126,6 +182,7 @@
                                 Close
                         </button>
                         </div>
+                    <!-- END MODAL: NEW PERSONNEL--->
                     </div>
                 </div>
     </div>
@@ -149,7 +206,6 @@
             crossorigin="anonymous">
     </script>
             </div>
-            <!--- End of Newsletter Code-->
   </div>
 </body>
 </html>

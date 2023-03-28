@@ -83,6 +83,7 @@
     <div style="text-align: center; margin-bottom:2cm; margin-top:1px">
         <!-- Button to launch a modal -->
         <button type="button"
+                id=" AddPer"
                 class="btn btn-primary"
                 data-toggle="modal"
                 data-target="#personnelModal">
@@ -90,6 +91,7 @@
         </button>
         <!-- Button to launch a modal -->
         <button type="button"
+                id=" AddOff"
                 class="btn btn-primary"
                 data-toggle="modal"
                 data-target="#officeModal">
@@ -97,6 +99,7 @@
         </button>
         <!-- Button to launch a modal -->
         <button type="button"
+                id=" RemPer"
                 class="btn btn-primary"
                 data-toggle="modal"
                 data-target="#delperModal">
@@ -104,6 +107,7 @@
         </button>
         <!-- Button to launch a modal -->
         <button type="button"
+                id=" RemOff"
                 class="btn btn-primary"
                 data-toggle="modal"
                 data-target="#delOffModal">
